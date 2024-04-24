@@ -1,19 +1,20 @@
 package com.blit;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.blit.entities.Seller;
+import com.blit.servicees.SellerService;
 
 @SpringBootApplication
 public class SellerItemApplication implements CommandLineRunner {
 	
+	@Autowired
+	private SellerService sellerService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(SellerItemApplication.class);
 
@@ -23,13 +24,17 @@ public class SellerItemApplication implements CommandLineRunner {
 	}
 	
 	public void run(String... args) throws Exception {
-		List<Seller> sellers = Arrays.asList(
-				new Seller("thing1", "thing@a.com", "chevychase"),
-				new Seller("grinch", "grinch@b.com", "bethesda"),
-				new Seller("samiam", "sam@c.com", "rockville")
-				);
 		
-				
+		Seller seller = new Seller(
+				"thing1", 
+				"password", 
+				"chevychase", 
+				2000);
+		
+		sellerService.saveSeller(seller);
+		
+		sellerService.getAllSellers().forEach(s -> logger.info(s.getUsername()));
+		
 	}
 
 }

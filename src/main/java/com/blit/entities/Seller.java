@@ -11,16 +11,31 @@ public class Seller {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String username, email, city;
+	private String username, password, city;
+	private int birthyear; 
 	
-	public Seller() {	
-	}
+	public Seller() {}
 	
-	public Seller(String username, String email, String city) {
+	public Seller(Long id, String username, String password, String city, int birthyear) {
+		super();
+		this.id = id;
 		this.username = username;
-		this.email = email;
+		this.password = password;
 		this.city = city;
+		this.birthyear = birthyear;
 	}
+	
+	public Seller(String username, String password, String city, int birthyear) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.city = city;
+		this.birthyear = birthyear;
+	}
+	
+	
+
+
 
 	public Long getId() {
 		return id;
@@ -38,12 +53,12 @@ public class Seller {
 		this.username = username;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getCity() {
@@ -53,6 +68,16 @@ public class Seller {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public int getBirthyear() {
+		return birthyear;
+	}
+
+	public void setBirthyear(int birthYear) {
+		this.birthyear = birthYear;
+	}
+	
+	
 	
 	
 	

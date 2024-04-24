@@ -40,9 +40,16 @@ public class SellerServiceImpl implements SellerService {
 	public Seller updateSeller(Long id, Seller seller) {
 		Optional<Seller> optionalSeller = sellerRepository.findById(id);
 		if(optionalSeller.isPresent()) {
-			optionalSeller.get().set
+			optionalSeller.get().setUsername(seller.getUsername());
+			optionalSeller.get().setPassword(seller.getPassword());
+			optionalSeller.get().setBirthyear(seller.getBirthyear());
+			
+			sellerRepository.save(optionalSeller.get());
+			
+			return optionalSeller.get();
+		} else {
+			throw new ResourceNotFoundException("Seller with " + id + " does not exsit");
 		}
-		return null;
 	}
 	
 	@Override
