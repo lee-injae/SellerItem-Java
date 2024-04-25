@@ -27,7 +27,8 @@ public class SellerServiceImpl implements SellerService {
 		if(seller.isPresent()) {
 			return seller.get();
 		} else {
-			throw new ResourceNotFoundException("Seller with " + id + " is not found");
+			throw new ResourceNotFoundException("Seller with " 
+					+ id + " is not found");
 		}
 	}
 	
@@ -54,12 +55,12 @@ public class SellerServiceImpl implements SellerService {
 	
 	@Override
 	public void deleteSellerById(Long id) {
-		
+		sellerRepository.deleteById(id);
 	}
 	
 	@Override
 	public Long countSellers() {
-		return null;
+		return sellerRepository.count();
 	}
 
 	

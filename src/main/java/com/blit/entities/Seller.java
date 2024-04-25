@@ -1,9 +1,14 @@
 package com.blit.entities;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Seller {
@@ -13,6 +18,10 @@ public class Seller {
 	private Long id;
 	private String username, password, city;
 	private int birthyear; 
+	
+	@OneToMany(fetch = FetchType.LAZY, 
+			cascade = CascadeType.ALL, mappedBy = "seller")
+	private List<Seller> sellers;
 	
 	public Seller() {}
 	
@@ -33,10 +42,6 @@ public class Seller {
 		this.birthyear = birthyear;
 	}
 	
-	
-
-
-
 	public Long getId() {
 		return id;
 	}

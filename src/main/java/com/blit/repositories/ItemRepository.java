@@ -1,6 +1,10 @@
 package com.blit.repositories;
 
-public class ItemRepository {
+import org.springframework.data.repository.CrudRepository;
+
+import com.blit.entities.Item;
+
+public interface ItemRepository extends CrudRepository<Item, Long> {
 	
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,14 +44,22 @@ public class SellerController {
 				HttpStatus.CREATED);
 	}
 	
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Seller> updateSeller(
 			@PathVariable Long id, Seller seller) {
 		return new ResponseEntity<>(sellerService.updateSeller(id, seller), 
 				HttpStatus.ACCEPTED);
 	}
 	
+	@DeleteMapping("/{id}")
+	public void deleteSeller(@PathVariable Long id) {
+		sellerService.deleteSellerById(id);
+	}
 	
+	@GetMapping("count")
+	public Long countSellers() {
+		return sellerService.countSellers();
+	}
 	
 	
 	

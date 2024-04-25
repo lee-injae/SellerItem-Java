@@ -1,9 +1,12 @@
 package com.blit.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Item {
@@ -11,29 +14,57 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private String itemName, desc; 
+	private String itemName, description; 
 	private int yearUsed, yearProduced;
-	boolean isNew;
+	private boolean isLikeNew;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "seller")
+	private Seller seller;
+	
+		public Seller getSeller() {
+			return seller;
+		}
+		
+		public void setSeller(Seller seller) {
+			this.seller = seller;
+		}
+	
 	
 	public Item() {}
 
-	public Item(Long id, String itemName, String desc, int yearUsed, int yearProduced, boolean isNew) {
+	public Item(Long id, 
+			String itemName, 
+			String description, 
+			int yearUsed, 
+			int yearProduced, 
+			boolean isLikeNew,
+			Seller seller) {
+		
 		super();
 		this.id = id;
 		this.itemName = itemName;
-		this.desc = desc;
+		this.description = description;
 		this.yearUsed = yearUsed;
 		this.yearProduced = yearProduced;
-		this.isNew = isNew;
+		this.isLikeNew = isLikeNew;
+		this.seller = seller;
 	}
 	
-	public Item(String itemName, String desc, int yearUsed, int yearProduced, boolean isNew) {
+	public Item(String itemName, 
+			String description, 
+			int yearUsed, 
+			int yearProduced, 
+			boolean isLikeNew,
+			Seller seller) {
+		
 		super();
 		this.itemName = itemName;
-		this.desc = desc;
+		this.description = description;
 		this.yearUsed = yearUsed;
 		this.yearProduced = yearProduced;
-		this.isNew = isNew;
+		this.isLikeNew = isLikeNew;
+		this.seller = seller;
 	}
 
 	public Long getId() {
@@ -52,12 +83,12 @@ public class Item {
 		this.itemName = itemName;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getYearUsed() {
@@ -76,13 +107,19 @@ public class Item {
 		this.yearProduced = yearProduced;
 	}
 
-	public boolean isNew() {
-		return isNew;
+	public boolean isLikeNew() {
+		return isLikeNew;
 	}
 
-	public void setNew(boolean isNew) {
-		this.isNew = isNew;
+	public void setLikeNew(boolean isLikeNew) {
+		this.isLikeNew = isLikeNew;
 	}
+
+	
+	
+
+	
+
 	
 	
 }
