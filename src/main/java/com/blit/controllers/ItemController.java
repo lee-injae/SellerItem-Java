@@ -18,7 +18,7 @@ import com.blit.entities.Item;
 import com.blit.servicees.ItemService;
 
 @RestController
-@RequestMapping("api/v1/item")
+@RequestMapping("/api/v1/item")
 public class ItemController {
 	
 	@Autowired
@@ -44,12 +44,12 @@ public class ItemController {
 				HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("{/id}")
+	@DeleteMapping("/{id}")
 	public void deleteItem(Long id) {
 		itemService.deleteItem(id);
 	}
 	
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Item> updateItem(
 			@RequestBody Long id, Item item) {
 		return new ResponseEntity<>(itemService.updateItem(id, item), 

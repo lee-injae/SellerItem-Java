@@ -1,5 +1,8 @@
 package com.blit.entities;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +17,10 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private String itemName, description; 
+	
+	@Column(name = "item_name", nullable = false, length = 100)
+	private String itemName;
+	private String description;
 	private int yearUsed, yearProduced;
 	private boolean isLikeNew;
 	
