@@ -21,7 +21,7 @@ public class Seller {
 	
 	@OneToMany(fetch = FetchType.LAZY, 
 			cascade = CascadeType.ALL, mappedBy = "seller")
-	private List<Seller> sellers;
+	private List<Item> items;
 	
 	public Seller() {}
 	

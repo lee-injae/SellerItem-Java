@@ -40,7 +40,7 @@ public class ItemController {
 				HttpStatus.CREATED);
 	}
 	
-	@PutMapping
+	
 	
 	
 	

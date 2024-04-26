@@ -66,8 +66,28 @@ public class SellerItemApplication implements CommandLineRunner {
 				seller2
 				);
 		
+		Item item3 = new Item (
+				"book",
+				"germs, guns, steel",
+				5,
+				2000,
+				true,
+				seller2
+				);
+		
+		Item item4 = new Item (
+				"water bottle",
+				"steel strong",
+				1,
+				1940,
+				false,
+				seller1
+				);
+		
 		itemService.saveItem(item1);
 		itemService.saveItem(item2);
+		itemService.saveItem(item3);
+		itemService.saveItem(item4);
 		itemService.getAllItems().forEach(i -> logger.info(i.getItemName()));
 
 		
