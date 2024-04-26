@@ -2,9 +2,11 @@ package com.blit.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,10 +21,23 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) 
 			throws Exception {
-		return http.httpBasic(Customizer.withDefaults())
-				.authorizeHttpRequests(
-						c -> c.anyRequest().authenticated())
-				.build();
+			http
+				.cors(cors -> Customizer.withDefaults())
+				.csrf(csrf -> csrf.disable())
+				.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest())
+				.authorizeHttpRequests()
+				.requestMatchers(HttpMethod.POST, "/api/v1/item")
+				.hasAnyRole("ADMIN", "USER")
+				.requestMatchers(HttpMethod.DELETE)
+				.hasRole("ADMIN")
+				.anyRequest().authenticated()
+				.and()
+				.httpBasic()
+				.and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				
+			
+			return http.build();
 	}
 	
 	@Bean
