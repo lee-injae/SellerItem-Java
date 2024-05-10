@@ -17,6 +17,7 @@ public class SellerItemApplication implements CommandLineRunner {
 	
 	@Autowired
 	private SellerService sellerService;
+	
 	@Autowired
 	private ItemService itemService;
 	
@@ -24,22 +25,24 @@ public class SellerItemApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SellerItemApplication.class, args);
-		logger.info("Majid!!!!");
+		logger.info("Application has started now!");
 	}
 	
 	public void run(String... args) throws Exception {
 		
 		Seller seller1 = new Seller(
-				"thing1", 
-				"password", 
+				"admin", 
+				"ADMIN",
+				"adminPass", 
 				"chevychase", 
 				2000);
 		
 		sellerService.saveSeller(seller1);
 		
 		Seller seller2 = new Seller (
-				"grinch",
-				"password",
+				"user",
+				"USER",
+				"userPass",
 				"sterling",
 				1995
 				);

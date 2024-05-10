@@ -19,7 +19,7 @@ public class Seller {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String username, password, city;
+	private String username, role, password, city;
 	private int birthyear; 
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "seller")
@@ -28,18 +28,20 @@ public class Seller {
 	
 	public Seller() {}
 	
-	public Seller(Long id, String username, String password, String city, int birthyear) {
+	public Seller(Long id, String username, String role, String password, String city, int birthyear) {
 		super();
 		this.id = id;
 		this.username = username;
+		this.role = role;
 		this.password = password;
 		this.city = city;
 		this.birthyear = birthyear;
 	}
 	
-	public Seller(String username, String password, String city, int birthyear) {
+	public Seller(String username, String role, String password, String city, int birthyear) {
 		super();
 		this.username = username;
+		this.role = role;
 		this.password = password;
 		this.city = city;
 		this.birthyear = birthyear;
@@ -61,6 +63,14 @@ public class Seller {
 		this.username = username;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -84,6 +94,14 @@ public class Seller {
 	public void setBirthyear(int birthYear) {
 		this.birthyear = birthYear;
 	}
+
+	@Override
+	public String toString() {
+		return "Seller [id=" + id + ", username=" + username + ", role=" + role + ", password=" + password + ", city="
+				+ city + ", birthyear=" + birthyear + ", items=" + items + "]";
+	}
+	
+	
 	
 	
 	

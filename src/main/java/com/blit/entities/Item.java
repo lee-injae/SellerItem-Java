@@ -121,6 +121,14 @@ public class Item {
 		this.isLikeNew = isLikeNew;
 	}
 
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", itemName=" + itemName + ", description=" + description + ", yearUsed=" + yearUsed
+				+ ", yearProduced=" + yearProduced + ", isLikeNew=" + isLikeNew + ", seller=" + seller + "]";
+	}
+	
+	
+
 	
 	
 
