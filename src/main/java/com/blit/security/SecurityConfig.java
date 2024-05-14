@@ -1,5 +1,7 @@
 package com.blit.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 import com.blit.servicees.UserServiceImpl;
 
@@ -21,17 +24,23 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) 
 			throws Exception {
 			return http
+					.cors(cors -> cors.configurationSource(request -> {
+		                CorsConfiguration configuration = new CorsConfiguration();
+		                configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5174")); // Allow this origin
+		                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allowed methods
+		                configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type")); // Allowed headers
+		                return configuration;
+		            }))
 					.csrf(csrf -> csrf.disable())
-					.cors(cors -> Customizer.withDefaults())
 					.authorizeHttpRequests(
 							c -> {c.requestMatchers(HttpMethod.GET,
-									"api/v1/item/*").hasAnyRole("ADMIN", "USER")
+									"/api/v1/item/*").hasAnyRole("ADMIN", "USER")
 							.requestMatchers(HttpMethod.POST, 
-									"api/v1/item/*").hasAnyRole("ADMIN", "USER")
+									"/api/v1/item/*").hasAnyRole("ADMIN", "USER")
 							.requestMatchers(HttpMethod.DELETE, 
-									"api/v1/item/*").hasAnyRole("ADMIN", "USER")
+									"/api/v1/item/*").hasAnyRole("ADMIN", "USER")
 							.requestMatchers(HttpMethod.PUT, 
-									"api/v1/item/*").hasAnyRole("ADMIN", "USER")
+									"/api/v1/item/*").hasAnyRole("ADMIN", "USER")
 							.anyRequest().authenticated();						
 							})
 					.httpBasic(Customizer.withDefaults())

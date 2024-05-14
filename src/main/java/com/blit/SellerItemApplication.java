@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.blit.entities.Item;
 import com.blit.entities.Seller;
@@ -21,6 +22,9 @@ public class SellerItemApplication implements CommandLineRunner {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	private static final Logger logger = LoggerFactory.getLogger(SellerItemApplication.class);
 
 	public static void main(String[] args) {
@@ -31,24 +35,24 @@ public class SellerItemApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		Seller seller1 = new Seller(
-				"admin", 
+				"oshi", 
 				"ADMIN",
-				"adminPass", 
+				passwordEncoder.encode("leelee"), 
 				"chevychase", 
 				2000);
 		
 		sellerService.saveSeller(seller1);
 		
 		Seller seller2 = new Seller (
-				"user",
+				"samiam",
 				"USER",
-				"userPass",
+				passwordEncoder.encode("greeneggs"),
 				"sterling",
 				1995
 				);
 		
-		sellerService.saveSeller(seller1);
 		sellerService.saveSeller(seller2);
+		
 		sellerService.getAllSellers().forEach(s -> logger.info(s.getUsername()));
 		
 		
