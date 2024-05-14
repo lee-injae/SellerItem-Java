@@ -34,7 +34,7 @@ public class ItemController {
 	public ResponseEntity<Item> getItem(
 			@PathVariable Long id) {
 		return new ResponseEntity<>(itemService.findItemById(id),
-				HttpStatus.CREATED);
+				HttpStatus.OK);
 	}
 	
 	@PostMapping 
@@ -45,13 +45,14 @@ public class ItemController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteItem(Long id) {
+	public ResponseEntity<Item> deleteItem(Long id) {
 		itemService.deleteItem(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Item> updateItem(
-			@RequestBody Long id, Item item) {
+			@PathVariable Long id, @RequestBody Item item) {
 		return new ResponseEntity<>(itemService.updateItem(id, item), 
 				HttpStatus.ACCEPTED);
 	}
